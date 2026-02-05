@@ -8,89 +8,80 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { CreateUserDTO } from '../models/create_user.dto';
+import { UpdateUserDTO } from '../models/update_user.dto';
 
 @Controller('users')
 export class UsersController {
   @Get()
   @HttpCode(200)
-  allPlaylists() {
+  allUsers() {
     return [
       {
         id: 1,
         name: 'PIERRE',
         email: 'pierre_rubens@gmail.com',
-        phone: '0701452368',
-        password: 'mdp123456',
+        phone: '+33701452368',
+        role: 'premium',
       },
       {
         id: 2,
         name: 'ALALOU',
         email: 'alalou.miriam@gmail.com',
-        phone: '0678513425',
-        password: '123456789',
+        phone: '+33678513425',
+        role: 'standard',
       },
       {
         id: 3,
         name: 'DUPOND',
         email: 'monique.dupond@gmail.com',
-        phone: '0645826145',
-        password: 'password',
+        phone: '+33645826145',
+        role: 'admin',
       },
     ];
   }
 
   @Get(':id')
   @HttpCode(200)
-  onePlaylistById(@Param('id') id: string) {
+  oneUserById(@Param('id') id: string) {
     return {
       id: id,
       name: 'DUPOND',
       email: 'monique.dupond@gmail.com',
-      phone: '0645826145',
-      password: 'password',
+      phone: '+33645826145',
+      role: 'password',
     };
   }
 
   @Post()
   @HttpCode(201)
-  newPlaylist(
+  newUser(
     @Body()
-    newData: {
-      id: number;
-      name: string;
-      email: string;
-      phone: string;
-      password: string;
-    },
+    newData: CreateUserDTO,
   ) {
     return {
       success: 'Post : ok',
-      playlist: newData,
+      user: newData,
     };
   }
 
   @Patch(':id')
   @HttpCode(200)
-  updatePlaylist(
+  updateUser(
     @Param('id') id: string,
     @Body()
-    updateData: {
-      name?: string;
-      email?: string;
-      phone?: string;
-      password?: string;
-    },
+    updateData: UpdateUserDTO,
   ) {
     return {
       success: 'Patch : ok',
       id: id,
-      playlist: updateData,
+      user: updateData,
     };
   }
 
   @Delete(':id')
   @HttpCode(204)
-  deletePlaylist(@Param('id') id: string) {
-    return;
+  deleteUser(@Param('id') id: string) {
+    return id;
   }
 }

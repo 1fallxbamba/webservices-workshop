@@ -8,6 +8,8 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { CreatePartnerDTO } from '../models/createPartners.dto';
+import { UpdatePartnerDTO } from '../models/updatePartners.dto';
 
 @Controller('partners')
 export class PartnersController {
@@ -51,12 +53,7 @@ export class PartnersController {
   @HttpCode(201)
   newPartner(
     @Body()
-    newData: {
-      id: number;
-      name: string;
-      email: string;
-      partnerDuration: number;
-    },
+    newData: CreatePartnerDTO,
   ) {
     return {
       success: 'Post : ok',
@@ -69,11 +66,7 @@ export class PartnersController {
   updatePartner(
     @Param('id') id: string,
     @Body()
-    updateData: {
-      name?: string;
-      email?: string;
-      partnerDuration?: number;
-    },
+    updateData: UpdatePartnerDTO,
   ) {
     return {
       success: 'Patch : ok',
@@ -85,6 +78,6 @@ export class PartnersController {
   @Delete(':id')
   @HttpCode(204)
   deletePartner(@Param('id') id: string) {
-    return;
+    return id;
   }
 }

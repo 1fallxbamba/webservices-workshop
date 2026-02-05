@@ -8,6 +8,8 @@ import {
   Delete,
   HttpCode,
 } from '@nestjs/common';
+import { CreateMovieDTO } from '../models/createMovie.dto';
+import { UpdateMovieDTO } from '../models/updateMovie.dto';
 
 @Controller('movies')
 export class MoviesController {
@@ -51,12 +53,7 @@ export class MoviesController {
   @HttpCode(201)
   newMovie(
     @Body()
-    movieData: {
-      id: number;
-      title: string;
-      director: string;
-      releaseYear: number;
-    },
+    movieData: CreateMovieDTO,
   ) {
     return {
       success: 'Post : ok',
@@ -69,11 +66,7 @@ export class MoviesController {
   updateMovie(
     @Param('id') id: string,
     @Body()
-    updateData: {
-      title?: string;
-      director?: string;
-      releaseYear?: number;
-    },
+    updateData: UpdateMovieDTO,
   ) {
     return {
       success: 'Patch : ok',
@@ -85,6 +78,6 @@ export class MoviesController {
   @Delete(':id')
   @HttpCode(204)
   deleteMovie(@Param('id') id: string) {
-    return;
+    return id;
   }
 }

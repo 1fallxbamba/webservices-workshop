@@ -8,6 +8,8 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { CreatePlaylistDTO } from '../models/createPlaylist.dto';
+import { UpdatePlaylistDTO } from '../models/updatePlaylist.dto';
 
 @Controller('playlists')
 export class PlaylistsController {
@@ -47,11 +49,7 @@ export class PlaylistsController {
   @HttpCode(201)
   newPlaylist(
     @Body()
-    newData: {
-      id: number;
-      name: string;
-      type: string;
-    },
+    newData: CreatePlaylistDTO,
   ) {
     return {
       success: 'Post : ok',
@@ -64,10 +62,7 @@ export class PlaylistsController {
   updatePlaylist(
     @Param('id') id: string,
     @Body()
-    updateData: {
-      name?: string;
-      type?: string;
-    },
+    updateData: UpdatePlaylistDTO,
   ) {
     return {
       success: 'Patch : ok',
@@ -79,6 +74,6 @@ export class PlaylistsController {
   @Delete(':id')
   @HttpCode(204)
   deletePlaylist(@Param('id') id: string) {
-    return;
+    return id;
   }
 }
