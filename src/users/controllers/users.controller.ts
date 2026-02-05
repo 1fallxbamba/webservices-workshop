@@ -1,5 +1,7 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post } from '@nestjs/common';
+import { CreateUserDto } from '../models/create-user.dto';
+import { UpdateUserDto } from '../models/update-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -40,14 +42,14 @@ export class UsersController {
     }
 
     @Post()
-    @HttpCode(201)
-    newUser(@Body() userData: { id: number, name: string, email: string, role: string }) {
-        return userData
+    @HttpCode(HttpStatus.CREATED)
+    newUser(@Body() userData: CreateUserDto) {
+        return userData;
     }
 
     @Patch(':id')
     @HttpCode(204)
-    updateUser(@Param('id') id: string, @Body() newData: { name?: string, email?: string, role?: string }) {
+    updateUser(@Param('id') id: string, @Body() newData: UpdateUserDto) {
         return { id, ...newData }
     }
 
