@@ -61,7 +61,7 @@ export class MoviesController {
     }
 
     @Delete(':id')
-    @HttpCode(204)
+    @HttpCode(200)
     deleteOneMovie(@Param('id') id: string) {
         return `Movie with id ${id} deleted !`;
        // return The movie has been deleted
