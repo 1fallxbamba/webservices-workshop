@@ -1,9 +1,17 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 
 @Controller('movies')
 export class MoviesController {
-  
   @Get()
   @HttpCode(200)
   allMovies() {
@@ -33,7 +41,7 @@ export class MoviesController {
   @HttpCode(200)
   getOneMovie(@Param('id') id: string) {
     return {
-      id: Number(id), 
+      id: Number(id),
       title: 'Inception',
       director: 'Christopher Nolan',
       year: 2010,
@@ -41,8 +49,16 @@ export class MoviesController {
   }
 
   @Post()
-  @HttpCode(200)
-  createMovie(@Body() movieData: { title: string; director: string; year: number }) {
+  @HttpCode(201)
+  createMovie(
+    @Body()
+    movieData: {
+      id: string;
+      title: string;
+      director: string;
+      year: number;
+    },
+  ) {
     return movieData;
   }
 
@@ -51,16 +67,25 @@ export class MoviesController {
   removeMovie(@Param('id') id: string) {
     return {
       message: `Le film avec l'ID ${id} a bien été supprimé`,
-      id: Number(id)
+      id: Number(id),
     };
   }
 
   @Patch(':id')
   @HttpCode(200)
-  patchMovie(@Param('id') id: string, @Body() updateData: { title?: string; director?: string; year?: number }) {
+  patchMovie(
+    @Param('id') id: string,
+    @Body()
+    updateData: {
+      id?: string;
+      title?: string;
+      director?: string;
+      year?: number;
+    },
+  ) {
     return {
       message: `Mise à jour du film ${id}`,
-      ...updateData, 
+      ...updateData,
     };
   }
 }
