@@ -1,9 +1,10 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from '@nestjs/common';
 
 @Controller('movies')
 export class MoviesController {
     @Get()
+    @HttpCode(200)
     allMovies() {
         return [
             {
@@ -28,6 +29,7 @@ export class MoviesController {
     }
 
     @Get(':id')
+    @HttpCode(200)
     oneMovieById(@Param('id') id: string) {
         return {
             id: id,
@@ -38,7 +40,31 @@ export class MoviesController {
     }
 
     @Post()
+    @HttpCode(201)
     newMovie(@Body() movieData: { id: number, title: string, director: string, releaseYear: number }) {
         return movieData
     }
+
+    @Patch(':id')
+    @HttpCode(204)
+    updateMovie(@Param('id') id: string, @Body() newData: { title?: string, director?: string, releaseYear?: number }) {
+        // return {
+        //     id: 1,
+        //     title: 'Inceptions',
+        //     director: 'Christopher Nolan',
+        //     releaseYear: 2010,
+        // }
+
+        // return newData;
+
+        return { id, ...newData }
+    }
+
+    @Delete(':id')
+    @HttpCode(204)
+    deleteOneMovie(@Param('id') id: string) {
+        return `Movie with id ${id} deleted !`;
+       // return The movie has been deleted
+    }
+
 }
