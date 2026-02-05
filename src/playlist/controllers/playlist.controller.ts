@@ -1,0 +1,86 @@
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
+import { CreatePlaylistDto } from '../models/create-playlist.dto';
+import { UpdatePlaylistDto } from '../models/update-playlist.dto';
+
+@Controller('playlists')
+export class PlaylistController {
+  @Get()
+  @HttpCode(200)
+  allPlaylists() {
+    return [
+      {
+        id: 1,
+        name: 'Thriller',
+        type: 'Movies',
+      },
+      {
+        id: 2,
+        name: 'Action',
+        type: 'Series',
+      },
+      {
+        id: 3,
+        name: 'Thriller',
+        type: 'Series',
+      },
+    ];
+  }
+
+  @Get(':id')
+  @HttpCode(200)
+  onePlaylistById(@Param('id') id: string) {
+    return {
+      id: id,
+      name: 'Thriller',
+      type: 'Series',
+    };
+  }
+
+  @Post()
+  @HttpCode(201)
+  newPlaylist(
+    @Body()
+    newData: {
+      id: number;
+      name: string;
+      type: string;
+    },
+  ) {
+    return {
+      success: 'Post : ok',
+      playlist: newData,
+    };
+  }
+
+  @Patch(':id')
+  @HttpCode(200)
+  updatePlaylist(
+    @Param('id') id: string,
+    @Body()
+    updateData: {
+      name?: string;
+      type?: string;
+    },
+  ) {
+    return {
+      success: 'Patch : ok',
+      id: id,
+      playlist: updateData,
+    };
+  }
+
+  @Delete(':id')
+  @HttpCode(204)
+  deletePlaylist(@Param('id') id: string) {
+    return;
+  }
+}
