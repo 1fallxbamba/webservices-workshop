@@ -1,5 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from '@nestjs/common';
+import { CreateMoviesDto } from '../models/create-movies.dto';
+import { UpdateMoviesDto } from '../models/update-movies.dto';
 
 @Controller('movies')
 export class MoviesController {

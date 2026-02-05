@@ -8,6 +8,8 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { CreatePartnersDto } from '../models/create-partners.dto';
+import { UpdatePartnersDto } from '../models/update-partners.dto';
 
 @Controller('partners')
 export class PartnersController {
