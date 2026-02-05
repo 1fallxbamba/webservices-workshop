@@ -48,15 +48,6 @@ export class MoviesController {
     @Patch(':id')
     @HttpCode(204)
     updateMovie(@Param('id') id: string, @Body() newData: { title?: string, director?: string, releaseYear?: number }) {
-        // return {
-        //     id: 1,
-        //     title: 'Inceptions',
-        //     director: 'Christopher Nolan',
-        //     releaseYear: 2010,
-        // }
-
-        // return newData;
-
         return { id, ...newData }
     }
 
@@ -64,7 +55,6 @@ export class MoviesController {
     @HttpCode(200)
     deleteOneMovie(@Param('id') id: string) {
         return `Movie with id ${id} deleted !`;
-       // return The movie has been deleted
     }
 
 }
