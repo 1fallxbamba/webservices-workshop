@@ -11,12 +11,36 @@ import {
 import { PlaylistsService } from '../services/playlists.service';
 import { CreatePlaylistDto } from '../dto/create-playlist.dto';
 import { UpdatePlaylistDto } from '../dto/update-playlist.dto';
+import { ApiBadRequestResponse, ApiCreatedResponse, ApiNoContentResponse, ApiOkResponse, ApiParam, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Endpoint related to playlists resources')
 @Controller('playlists')
 export class PlaylistsController {
   constructor(private readonly playlistsService: PlaylistsService) {}
+@ApiOkResponse({
+    description: 'return array  of all playlists', 
+    type: 'array',
+     schema: {
+       example: [
+         {
+           id: 1,
+           name: 'Playlist 1',
+           description: 'Description of Playlist 1',
+         },
 
+       ],
+       
+     },
+
+   })
   // POST /playlists
+  @ApiCreatedResponse({
+    description: 'The record has been successfully created.',
+    type: CreatePlaylistDto,
+  })
+  @ApiBadRequestResponse({
+    description: 'Bad Request.',
+  })
   @Post()
   @HttpCode(201)
   create(@Body() createPlaylistDto: CreatePlaylistDto) {
@@ -29,12 +53,14 @@ export class PlaylistsController {
     return this.playlistsService.findAll();
   }
 
+  @ApiParam({ name: 'id', description: 'ID of the playlist to retrieve', example: 1 })
   // GET /playlists/:id
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.playlistsService.findOne(+id);
   }
-
+ 
+ 
   // PATCH /playlists/:id
   @Patch(':id')
   update(
@@ -43,7 +69,12 @@ export class PlaylistsController {
   ) {
     return this.playlistsService.update(+id, updatePlaylistDto);
   }
-
+ @ApiNoContentResponse({
+    description: 'The record has been successfully deleted.',
+  })
+  @ApiBadRequestResponse({
+    description: 'Bad Request.',
+  })
   // DELETE /playlists/:id
   @Delete(':id')
   @HttpCode(204)
