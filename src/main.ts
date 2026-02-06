@@ -16,6 +16,12 @@ async function bootstrap() {
   .setDescription('API documentation for the Netflix Clone API created by M2 LFD Ecole PMN masters')
   .setContact('Bamba Fall', '', 'bamba@google.com')
   .setVersion('1.0')
+  .addApiKey(({
+    type: 'apiKey',
+    name: process.env.API_AUTH_TOKEN_NAME,
+    in: 'header',
+    description: 'API authentication token, you can get it from the .env file or ask the developer for it',
+  }), 'API_AUTH_TOKEN')
   .build();
 
   const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfig);
