@@ -1,6 +1,9 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from '@nestjs/common';
 import { CreatePartenerDto } from '../models/create-partener.dto';
 import { UpdatePartenerDto } from '../models/update-partener.dto';
+import { ApiTags } from '@nestjs/swagger';
+
+@ApiTags('Endpoint related to parteners')
 @Controller('parteners')
 export class PartnersController {
     @Get()

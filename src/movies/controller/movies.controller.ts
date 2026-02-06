@@ -1,10 +1,23 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from '@nestjs/common';
 import { CreateMovieDto } from '../models/create-movie.dto';
 import { UpdateMovieDto } from '../models/update-movie.dto';
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
- 
+@ApiTags('Endpoint related to movies')
 @Controller('movies')
 export class MoviesController {
+    @ApiOkResponse({
+        description:'return an any of all movies',
+        type:'array',
+        schema:
+        {
+            items:
+            {
+                type:'object',
+                
+            }
+        }
+    })
     @Get()
     @HttpCode(200)
     allMovies() {

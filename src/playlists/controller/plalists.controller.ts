@@ -2,7 +2,9 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from '@nestjs/common';
 import { CreatePlaylistDto } from '../models/create-playlist.dto';
 import { UpdatePlaylistDto } from '../models/update-playlist.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Endpoint related to playlists')
 @Controller('playlists')
 export class PlalistsController {
     @Get()
