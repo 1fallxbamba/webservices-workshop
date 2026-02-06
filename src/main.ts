@@ -15,6 +15,15 @@ const swaggerConfig = new DocumentBuilder()
   .setDescription('API for managing movies, users, playlists and partners')
   .setContact('Emmanuel', '', 'emmanuel@example.com')
   .setVersion('1.0')
+  .addApiKey(
+    {
+      type: 'apiKey',
+      name: 'api-auth-token',
+      in: 'header',
+      description: 'API authentication token for secure endpoints'
+    },
+    'api-auth-token'
+  )
   .build()
 
 const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfig);

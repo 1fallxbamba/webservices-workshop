@@ -1,8 +1,9 @@
 /* eslint-disable prettier/prettier */
 import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBody } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBody, ApiSecurity } from '@nestjs/swagger';
 
 @ApiTags('Playlists')
+@ApiSecurity('api-auth-token')
 @Controller('playlists')
 export class PlaylistsController {
     @Get()
