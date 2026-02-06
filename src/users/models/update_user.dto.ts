@@ -1,19 +1,36 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsPhoneNumber, IsString } from 'class-validator';
 
 export class UpdateUserDTO {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   @IsNotEmpty()
+  @ApiProperty({
+    required: false,
+    description: 'New full name of the user',
+    example: 'Alice Dupont',
+  })
   name: string;
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   @IsEmail()
-  email: string;
+  @ApiProperty({
+    required: false,
+    description: 'New email address of the user (optional)',
+    example: 'alice.dupont@example.com',
+  })
+  email?: string;
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   @IsPhoneNumber()
-  phone: string;
+  @ApiProperty({
+    required: false,
+    description: 'New phone number of the user (optional)',
+    example: '+33612345678',
+  })
+  phone?: string;
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   @IsString()
+  @ApiProperty({
+    required: false,
+    description: 'New role of the user in the system',
+    example: 'admin',
+  })
   role: string;
 }

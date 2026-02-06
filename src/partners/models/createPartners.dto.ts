@@ -1,19 +1,37 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreatePartnerDTO {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   @IsNumber()
+  @ApiProperty({
+    required: true,
+    description: 'Unique identifier of the partner',
+    example: 1,
+  })
   id: number;
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   @IsString()
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   @IsNotEmpty()
+  @ApiProperty({
+    required: true,
+    description: 'Full name of the partner',
+    example: 'John Doe',
+  })
   name: string;
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+
   @IsEmail()
+  @ApiProperty({
+    required: true,
+    description: 'Email address of the partner',
+    example: 'john.doe@example.com',
+  })
   email: string;
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+
   @IsNumber()
+  @ApiProperty({
+    required: true,
+    description: 'Duration of the partnership in years',
+    example: 3,
+  })
   partnerDuration: number;
 }
