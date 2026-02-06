@@ -1,9 +1,10 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from '@nestjs/common';
 import { CreateUserDto } from '../models/create-user.dto';
 import { UpdateUserDto } from '../models/update-user.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiSecurity, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Endpoint related to users')
+@ApiSecurity('API_AUTH_TOKEN')
 @Controller('users')
 export class UsersController {
     @Get()

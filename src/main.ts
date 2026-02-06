@@ -11,6 +11,13 @@ async function bootstrap() {
   .setTitle('Netflix Clone API')
   .setDescription('API documentation for the clone API Netflix')
   .setVersion('1')
+  .addApiKey(
+  ({
+    type: 'apiKey',
+    name: process.env.JWT_SECRET,
+    in: 'header',
+    description: 'API authentication token, you can get it from the .env file or ask the developer for it',
+  }), 'API_AUTH_TOKEN')
   .build()
 
   const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfig);
