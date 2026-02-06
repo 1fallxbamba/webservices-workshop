@@ -1,6 +1,8 @@
 /* eslint-disable prettier/prettier */
 import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Endpoints related to Partners resource')
 @Controller('partners')
 export class PartnersController {
     @Get()

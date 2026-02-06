@@ -1,8 +1,11 @@
 /* eslint-disable prettier/prettier */
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post } from '@nestjs/common';
+import { ApiSecurity, ApiTags } from '@nestjs/swagger';
+
 import { CreateUserDto } from '../models/create-user.dto';
 import { UpdateUserDto } from '../models/update-user.dto';
 
+@ApiTags('Endpoints related to Users resource')
 @Controller('users')
 export class UsersController {
     @Get()
