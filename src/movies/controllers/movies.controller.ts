@@ -27,7 +27,6 @@ export class MoviesController {
             }
         ]
     }
-
     @Get(':id')
     @HttpCode(200)
     oneMovieById(@Param('id') id: string) {
@@ -38,7 +37,6 @@ export class MoviesController {
             releaseYear: 2010,
         }
     }
-
     @Post()
     @HttpCode(201)
     newMovie(@Body() movieData: { id: number, title: string, director: string, releaseYear: number }) {
