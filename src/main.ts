@@ -1,27 +1,25 @@
 import { NestFactory } from '@nestjs/core';
-<<<<<<< HEAD
 import { ValidationPipe } from '@nestjs/common';
 
 import { AppModule } from './app.module';
 
 import 'dotenv/config';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
-  await app.listen(process.env.PORTS as unknown as number);
-=======
-import { AppModule } from './app.module';
 
-import 'dotenv/config';
+const swaggerConfig = new DocumentBuilder()
+  .setTitle('Netflix API')
+  .setDescription('API for managing movies, users, playlists and partners')
+  .setContact('Emmanuel', '', 'emmanuel@example.com')
+  .setVersion('1.0')
+  .build()
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-<<<<<<< HEAD
-  await app.listen(process.env.PORT ?? 3000);
->>>>>>> 09a7179 (The commit)
-=======
+const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfig);
+SwaggerModule.setup('docs', app, swaggerDocument);
+
   await app.listen(process.env.PORT as unknown as number);
->>>>>>> d6a2aab (create movies API)
 }
 bootstrap();
