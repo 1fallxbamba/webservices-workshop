@@ -1,9 +1,14 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { PlaylistsService } from './services/playlists.service';
 import { PlaylistsController } from './controller/playlists.controller';
+import { ApiAuthMiddleware } from 'src/security/api-auth.middleware';
 
 @Module({
   providers: [PlaylistsService],
   controllers: [PlaylistsController],
 })
-export class PlaylistsModule {}
+export class PlaylistsModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(ApiAuthMiddleware).forRoutes(PlaylistsController);
+  }
+}
