@@ -9,13 +9,21 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { 
+  ApiTags, 
+  ApiParam, 
+  ApiOkResponse, 
+  ApiCreatedResponse, 
+  ApiBadRequestResponse, 
+  ApiNotFoundResponse 
+} from '@nestjs/swagger';
 
-@ApiTags('Enpoints relatifs aux playlists')
+@ApiTags('Endpoints relatifs aux playlists')
 @Controller('playlists')
 export class PlaylistsController {
   @Get()
   @HttpCode(200)
+  @ApiOkResponse({ description: 'Liste des playlists récupérée avec succès.' })
   allPlaylists() {
     return [
       {
@@ -35,6 +43,9 @@ export class PlaylistsController {
 
   @Get(':id')
   @HttpCode(200)
+  @ApiParam({ name: 'id', description: 'Identifiant de la playlist à récupérer', example: '1' })
+  @ApiOkResponse({ description: 'Détails de la playlist.' })
+  @ApiNotFoundResponse({ description: 'Playlist introuvable.' })
   getOnePlaylist(@Param('id') id: string) {
     return {
       id: Number(id),
@@ -46,6 +57,8 @@ export class PlaylistsController {
 
   @Post()
   @HttpCode(201)
+  @ApiCreatedResponse({ description: 'La playlist a été créée.' })
+  @ApiBadRequestResponse({ description: 'Données d\'entrée invalides.' })
   createPlaylist(
     @Body()
     playlistData: {
@@ -62,6 +75,8 @@ export class PlaylistsController {
 
   @Delete(':id')
   @HttpCode(200)
+  @ApiParam({ name: 'id', description: 'ID de la playlist à supprimer', example: '5' })
+  @ApiOkResponse({ description: 'La playlist a été supprimée.' })
   removePlaylist(@Param('id') id: string) {
     return {
       message: `La playlist avec l'ID ${id} a été supprimée avec succès`,
@@ -71,6 +86,8 @@ export class PlaylistsController {
 
   @Patch(':id')
   @HttpCode(200)
+  @ApiParam({ name: 'id', description: 'ID de la playlist à modifier', example: '12' })
+  @ApiOkResponse({ description: 'La playlist a été mise à jour.' })
   updatePlaylist(
     @Param('id') id: string,
     @Body()

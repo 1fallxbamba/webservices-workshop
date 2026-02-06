@@ -9,9 +9,11 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBadRequestResponse, ApiNoContentResponse, ApiOkResponse, ApiTags, ApiParam } from '@nestjs/swagger';
 
+@ApiOkResponse({ description: 'Retourne une liste de films', type: [Object] })
 @ApiTags('Enpoints relatifs aux movies')
+@ApiBadRequestResponse({ description: 'Requête invalide' }) 
 @Controller('movies')
 export class MoviesController {
   @Get()
@@ -41,6 +43,8 @@ export class MoviesController {
 
   @Get(':id')
   @HttpCode(200)
+  @ApiParam({ name: 'id', description: 'L\'identifiant unique du film', example: '1' })
+  @ApiBadRequestResponse({ description: 'Requête invalide' }) 
   getOneMovie(@Param('id') id: string) {
     return {
       id: Number(id),
@@ -52,6 +56,9 @@ export class MoviesController {
 
   @Post()
   @HttpCode(201)
+  @ApiOkResponse({ description: 'Le film a été créé avec succès', type: Object }) 
+  @ApiNoContentResponse({ description: 'Aucun contenu retourné' })
+  @ApiBadRequestResponse({ description: 'Requête invalide' }) 
   createMovie(
     @Body()
     movieData: {
@@ -75,6 +82,7 @@ export class MoviesController {
 
   @Patch(':id')
   @HttpCode(200)
+  @ApiParam({ name: 'id', description: 'ID du film à modifier', example: '5' })
   patchMovie(
     @Param('id') id: string,
     @Body()

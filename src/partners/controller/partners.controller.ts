@@ -9,13 +9,20 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { 
+  ApiTags, 
+  ApiParam, 
+  ApiOkResponse, 
+  ApiCreatedResponse, 
+  ApiBadRequestResponse 
+} from '@nestjs/swagger';
 
-@ApiTags('Enpoints relatifs aux partenaires')
+@ApiTags('Endpoints relatifs aux partenaires')
 @Controller('partners')
 export class PartnersController {
   @Get()
   @HttpCode(200)
+  @ApiOkResponse({ description: 'Liste des partenaires récupérée avec succès.' })
   allPartners() {
     return [
       {
@@ -35,6 +42,9 @@ export class PartnersController {
 
   @Get(':id')
   @HttpCode(200)
+  @ApiParam({ name: 'id', description: 'Identifiant unique du partenaire', example: '1' })
+  @ApiOkResponse({ description: 'Détails du partenaire trouvés.' })
+  @ApiBadRequestResponse({ description: 'ID invalide.' })
   getOnePartner(@Param('id') id: string) {
     return {
       id: Number(id),
@@ -46,6 +56,7 @@ export class PartnersController {
 
   @Post()
   @HttpCode(201)
+  @ApiCreatedResponse({ description: 'Le partenaire a été créé avec succès.' })
   createPartner(
     @Body()
     partnerData: {
@@ -63,6 +74,8 @@ export class PartnersController {
 
   @Delete(':id')
   @HttpCode(200)
+  @ApiParam({ name: 'id', description: 'ID du partenaire à supprimer', example: '10' })
+  @ApiOkResponse({ description: 'Le partenaire a été supprimé.' })
   removePartner(@Param('id') id: string) {
     return {
       message: `Le partenaire avec l'ID ${id} a été retiré du système`,
@@ -72,6 +85,8 @@ export class PartnersController {
 
   @Patch(':id')
   @HttpCode(200)
+  @ApiParam({ name: 'id', description: 'ID du partenaire à mettre à jour', example: '42' })
+  @ApiOkResponse({ description: 'Le partenaire a été mis à jour.' })
   updatePartner(
     @Param('id') id: string,
     @Body()
