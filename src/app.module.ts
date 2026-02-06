@@ -1,11 +1,14 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { MoviesModule } from './movies/movies.module';
+import { UsersModule } from './users/users.module';
+import { PlaylistsModule } from './playlists/playlists.module';
+import { PartnersModule } from './partners/partners.module';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      isGlobal: true, // pour utiliser process.env partout
-    }),
-  ],
+  imports: [MoviesModule, UsersModule, PlaylistsModule, PartnersModule],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
