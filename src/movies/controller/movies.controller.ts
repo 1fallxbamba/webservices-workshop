@@ -1,5 +1,8 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from '@nestjs/common';
+import { CreateMovieDto } from '../models/create-movie.dto';
+import { UpdateMovieDto } from '../models/update-movie.dto';
 
+ 
 @Controller('movies')
 export class MoviesController {
     @Get()
@@ -10,13 +13,13 @@ export class MoviesController {
                 id:1,
                 title:'UPC',
                 directotCut:'Paul-Biya',
-                releaseYear:'2025'
+                releaseYear:'2026'
             },
              {
                 id:2,
                 title:'RDPC',
                 directotCut:'Paul-Biya',
-                releaseYear:'2025'
+                releaseYear:'2026'
             }
         ]
     }
@@ -29,20 +32,20 @@ export class MoviesController {
             id:id,
             title:'UPC',
             directotCut:'Paul-Biya',
-            releaseYear:'2025'
+            releaseYear:'2022'
         }
     }
 
     @Post()
     @HttpCode(201)
-    newMovie(@Body() movieData: {title: string,directotCut:string,releaseYear:string})
+    newMovie(@Body() movieData:CreateMovieDto)
     {
         return movieData;
     }
 
     @Patch()
     @HttpCode(204)
-    updateMovie(@Param('id') id: string,@Body() newData:{title?: string,directotCut?:string,releaseYear?:string})
+    updateMovie(@Param('id') id: string,@Body() newData:UpdateMovieDto)
     {
         return{id, ...newData}
     }
