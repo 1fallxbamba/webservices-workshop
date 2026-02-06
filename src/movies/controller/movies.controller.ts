@@ -9,7 +9,9 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Enpoints relatifs aux movies')
 @Controller('movies')
 export class MoviesController {
   @Get()

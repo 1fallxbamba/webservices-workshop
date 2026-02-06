@@ -9,7 +9,9 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Enpoints relatifs aux partenaires')
 @Controller('partners')
 export class PartnersController {
   @Get()
